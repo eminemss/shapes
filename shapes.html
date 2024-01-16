@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shapes Drawing</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+
+        canvas {
+            display: block;
+            margin: 10px auto;
+            border:10px solid white; /* Border color */
+            border-radius: 8px;
+        }
+
+        h2 {
+            display: none; /* Hide titles */
+        }
+    </style>
+</head>
+<body>
+
+<div class="grid-container">
+    <div class="shape-container">
+        <canvas id="square" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="circle" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="ellipse" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="rectangle" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="triangle" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="pentagon" width="100" height="100"></canvas>
+    </div>
+    <div class="shape-container">
+        <canvas id="triangle2" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="star" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="heart" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="hexagon" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="circle2" width="100" height="100"></canvas>
+    </div>
+
+    <div class="shape-container">
+        <canvas id="rectangle2" width="100" height="100"></canvas>
+    </div>
+
+   
+
+    <!-- Add more shapes as needed -->
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Example for Square
+        var squareCanvas = document.getElementById('square').getContext('2d');
+        squareCanvas.fillStyle = '#ffcc66';
+        squareCanvas.fillRect(10, 10, 80, 80);
+
+        // Example for Circle
+        var circleCanvas = document.getElementById('circle').getContext('2d');
+        circleCanvas.fillStyle = '#ffcc66';
+        circleCanvas.beginPath();
+        circleCanvas.arc(50, 50, 40, 0, Math.PI * 2);
+        circleCanvas.closePath();
+        circleCanvas.fill();
+
+        // Example for Ellipse
+        var ellipseCanvas = document.getElementById('ellipse').getContext('2d');
+        ellipseCanvas.fillStyle = '#ffcc66';
+        ellipseCanvas.beginPath();
+        ellipseCanvas.ellipse(50, 50, 40, 20, 0, 0, Math.PI * 2);
+        ellipseCanvas.fill();
+
+        // Example for Rectangle
+        var rectangleCanvas = document.getElementById('rectangle').getContext('2d');
+        rectangleCanvas.fillStyle = '#ffcc66';
+        rectangleCanvas.fillRect(10, 10, 80, 50);
+
+        // Example for Triangle
+        var triangleCanvas = document.getElementById('triangle').getContext('2d');
+        triangleCanvas.fillStyle = '#b3b3cc';
+        triangleCanvas.beginPath();
+        triangleCanvas.moveTo(50, 10);
+        triangleCanvas.lineTo(90, 60);
+        triangleCanvas.lineTo(10, 60);
+        triangleCanvas.closePath();
+        triangleCanvas.fill();
+
+        // Example for Pentagon
+        var pentagonCanvas = document.getElementById('pentagon').getContext('2d');
+        pentagonCanvas.fillStyle = '#b3b3cc';
+        drawPolygon(pentagonCanvas, 50, 50, 40, 5);
+
+        // Example for Hexagon
+        var hexagonCanvas = document.getElementById('hexagon').getContext('2d');
+        hexagonCanvas.fillStyle = '#ff9999';
+        drawPolygon(hexagonCanvas, 50, 50, 40, 6);
+
+        // Example for Circle 2
+        var circle2Canvas = document.getElementById('circle2').getContext('2d');
+        circle2Canvas.fillStyle = '#ff9999';
+        circle2Canvas.beginPath();
+        circle2Canvas.arc(50, 50, 40, 0, Math.PI * 2);
+        circle2Canvas.closePath();
+        circle2Canvas.fill();
+
+        // Example for Rectangle 2
+        var rectangle2Canvas = document.getElementById('rectangle2').getContext('2d');
+        rectangle2Canvas.fillStyle = '#ff9999';
+        rectangle2Canvas.fillRect(10, 10, 80, 50);
+
+        // Example for Triangle 2
+        var triangle2Canvas = document.getElementById('triangle2').getContext('2d');
+        triangle2Canvas.fillStyle = '#b3b3cc';
+        triangle2Canvas.beginPath();
+        triangle2Canvas.moveTo(10, 60);
+        triangle2Canvas.lineTo(50, 10);
+        triangle2Canvas.lineTo(90, 60);
+        triangle2Canvas.closePath();
+        triangle2Canvas.fill();
+
+        // Example for Star
+        var starCanvas = document.getElementById('star').getContext('2d');
+        drawStar(starCanvas, 25, 50, 25, 5, '#b3b3cc');
+
+        // Example for Heart
+        var heartCanvas = document.getElementById('heart').getContext('2d');
+        heartCanvas.fillStyle = '#ff9999';
+        drawHeart(heartCanvas, 50, 50, 40);
+
+    });
+
+    function drawPolygon(ctx, x, y, radius, sides) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius * Math.cos(0), y + radius * Math.sin(0));
+        for (var i = 1; i <= sides; i++) {
+            ctx.lineTo(x + radius * Math.cos(i * 2 * Math.PI / sides), y + radius * Math.sin(i * 2 * Math.PI / sides));
+        }
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function drawStar(ctx, x, y, radius, spikes, fillColor) {
+        var rot = (Math.PI / 2) * 3;
+        var xRot = x + Math.cos(rot) * radius;
+        var yRot = y + Math.sin(rot) * radius;
+
+        var step = Math.PI / spikes;
+
+        ctx.fillStyle = fillColor;
+        ctx.beginPath();
+        ctx.moveTo(x, y - radius);
+
+        for (var i = 0; i < spikes; i++) {
+            x = x + Math.cos(rot) * radius;
+            y = y + Math.sin(rot) * radius;
+            ctx.lineTo(x, y);
+            rot += step;
+
+            x = x + Math.cos(rot) * (radius / 2);
+            y = y + Math.sin(rot) * (radius / 2);
+            ctx.lineTo(x, y);
+            rot += step;
+        }
+
+        ctx.lineTo(xRot, yRot);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function drawHeart(ctx, x, y, size) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.arc(x - size / 2, y - size / 4, size / 2, 0, Math.PI);
+        ctx.arc(x + size / 2, y - size / 4, size / 2, 0, Math.PI);
+        ctx.lineTo(x, y + size);
+        ctx.closePath();
+        ctx.fill();
+    }
+</script>
+
+</body>
+</html>
